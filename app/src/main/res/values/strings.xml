@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">TodoList</string>
 
+    <!--Button Title-->
+    <string name="add_button_title">Adicionar</string>
+
+    <!--Hint-->
+    <string name="task_title_hint">Digite o título da tarefa...</string>
+
     <!--Content Description-->
     <string name="add_button_cd">Add a Task</string>
     <string name="edit_button_cd">Edit a Task</string>
