@@ -2,4 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Personalized Colors -->
+    <color name="primary">#17495d</color>
+    <color name="primary_variant">#04394c</color>
+
+    <color name="secondary">#2a5a6e</color>
+    <color name="secondary_variant">#3d6a7e</color>
+
+    <color name="background_all">#F0EBE3</color>
 </resources>

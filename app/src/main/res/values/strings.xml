@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">TodoList</string>
+
+    <!--Content Description-->
+    <string name="add_button_cd">Add a Task</string>
+    <string name="edit_button_cd">Edit a Task</string>
+    <string name="delete_button_cd">Delete a Task</string>
 </resources>
