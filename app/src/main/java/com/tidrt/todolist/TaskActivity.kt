@@ -28,6 +28,7 @@ class TaskActivity : AppCompatActivity() {
                 save()
             }
         }
+
     }
 
     private fun save() {
