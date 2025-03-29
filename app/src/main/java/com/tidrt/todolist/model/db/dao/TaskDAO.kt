@@ -13,7 +13,6 @@ class TaskDAO(context : Context) : ITaskDAO {
     override fun save(task: Task): Boolean {
         val contentValue = ContentValues()
         contentValue.put(DatabaseHelper.TITLE, task.title)
-        contentValue.put(DatabaseHelper.DATE, task.date)
 
         try {
             write.insert(

@@ -24,7 +24,7 @@ class DatabaseHelper(context : Context) : SQLiteOpenHelper(
         val sql =   "CREATE TABLE IF NOT EXISTS $DB_TASK(" +
                     "$ID_TASK INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                     "$TITLE VARCHAR(100)," +
-                    "$DATE TEXT)"
+                    "$DATE DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP)"
 
         try {
             p0?.execSQL(sql)
