@@ -6,12 +6,15 @@ import android.database.sqlite.SQLiteOpenHelper
 
 class DatabaseHelper(context : Context) : SQLiteOpenHelper(
     context,
-    "task.db",
+    DB_NAME,
     null,
-    1
+    DB_VERSION
 ) {
     companion object{
+        const val DB_VERSION = 1
+        const val DB_NAME = "task.db"
         const val DB_TASK = "tasks"
+
         const val ID_TASK = "id_task"
         const val TITLE = "title"
         const val DATE = "task_date"
