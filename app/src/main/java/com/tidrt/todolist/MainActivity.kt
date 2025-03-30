@@ -2,18 +2,24 @@ package com.tidrt.todolist
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.tidrt.todolist.adapter.TaskAdapter
 import com.tidrt.todolist.databinding.ActivityMainBinding
 import com.tidrt.todolist.model.db.dao.TaskDAO
+import com.tidrt.todolist.model.entities.Task
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater);
     }
+    private var taskList = emptyList<Task>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +34,17 @@ class MainActivity : AppCompatActivity() {
         binding.fabAdd.setOnClickListener {
             val intent = Intent(this, TaskActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val taskDAO = TaskDAO(this)
+        taskList = taskDAO.read()
+
+        with(binding){
+            rvTaskList.adapter = TaskAdapter(taskList)
+            rvTaskList.layoutManager = LinearLayoutManager(binding.rvTaskList.context)
         }
     }
 }
