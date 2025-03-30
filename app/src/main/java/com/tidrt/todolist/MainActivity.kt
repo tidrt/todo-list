@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.tidrt.todolist.databinding.ActivityMainBinding
+import com.tidrt.todolist.model.db.dao.TaskDAO
 
 class MainActivity : AppCompatActivity() {
 
