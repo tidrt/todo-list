@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -37,12 +38,28 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        taskAdapter = TaskAdapter()
+        taskAdapter = TaskAdapter(
+            {id -> acceptDelete(id)}
+        )
+
         with(binding){
             rvTaskList.adapter = taskAdapter
             rvTaskList.layoutManager = LinearLayoutManager(binding.rvTaskList.context)
-
         }
+    }
+
+    private fun acceptDelete(id : Int) {
+        val alertBuilder = AlertDialog.Builder(this)
+        alertBuilder.setTitle("Confirmar Exclusão")
+            .setMessage("Deseja confirmar a exclusão da tarefa?")
+            .setPositiveButton("Sim"){_, _ ->
+
+            }
+            .setNegativeButton("Não"){_, _ ->
+
+            }
+            .create()
+            .show()
     }
 
     private fun updateTaskList(){

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.tidrt.todolist.databinding.TaskCardViewBinding
 import com.tidrt.todolist.model.entities.Task
 
-class TaskAdapter() : Adapter<TaskAdapter.TaskViewHolder>() {
+class TaskAdapter(val onClickDelete : (Int) -> Unit) : Adapter<TaskAdapter.TaskViewHolder>() {
 
     private var listTask : List<Task> = emptyList()
 
@@ -16,11 +16,12 @@ class TaskAdapter() : Adapter<TaskAdapter.TaskViewHolder>() {
         notifyDataSetChanged()
     }
 
-    inner class TaskViewHolder(private val taskBinding : TaskCardViewBinding): ViewHolder(taskBinding.root){
+    inner class TaskViewHolder(taskBinding : TaskCardViewBinding): ViewHolder(taskBinding.root){
         private val binding : TaskCardViewBinding = taskBinding
         fun bind(tasks: Task) {
             binding.txtTask.text = tasks.title
             binding.txtDate.text = tasks.date
+            binding.btnDelete.setOnClickListener { onClickDelete(tasks.idTask) }
         }
     }
 
