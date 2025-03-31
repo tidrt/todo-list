@@ -1,19 +1,27 @@
 package com.tidrt.todolist.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.tidrt.todolist.databinding.TaskCardViewBinding
 import com.tidrt.todolist.model.entities.Task
 
-class TaskAdapter(private val listTask : List<Task>) : Adapter<TaskAdapter.TaskViewHolder>() {
+class TaskAdapter() : Adapter<TaskAdapter.TaskViewHolder>() {
 
-    inner class TaskViewHolder(private val binding : TaskCardViewBinding): ViewHolder(binding.root){
-        val taskTitle : TextView = binding.txtTask
-        val taskDate : TextView = binding.txtDate
+    private var listTask : List<Task> = emptyList()
+
+    fun addTaskList(list : List<Task>){
+        this.listTask = list
+        notifyDataSetChanged()
+    }
+
+    inner class TaskViewHolder(private val taskBinding : TaskCardViewBinding): ViewHolder(taskBinding.root){
+        private val binding : TaskCardViewBinding = taskBinding
+        fun bind(tasks: Task) {
+            binding.txtTask.text = tasks.title
+            binding.txtDate.text = tasks.date
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -25,8 +33,7 @@ class TaskAdapter(private val listTask : List<Task>) : Adapter<TaskAdapter.TaskV
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val tasks = listTask[position]
-        holder.taskTitle.text = tasks.title
-        holder.taskDate.text = tasks.date
+        holder.bind(tasks)
     }
 
     override fun getItemCount(): Int {

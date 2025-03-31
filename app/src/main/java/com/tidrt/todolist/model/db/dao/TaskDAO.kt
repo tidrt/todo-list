@@ -2,6 +2,7 @@ package com.tidrt.todolist.model.db.dao
 
 import android.content.ContentValues
 import android.content.Context
+import android.provider.ContactsContract.Data
 import com.tidrt.todolist.model.db.DatabaseHelper
 import com.tidrt.todolist.model.entities.Task
 
@@ -31,7 +32,7 @@ class TaskDAO(context : Context) : ITaskDAO {
         val taskList = mutableListOf<Task>()
         val sql =   "SELECT ${DatabaseHelper.ID_TASK}, " +
                     "${DatabaseHelper.TITLE}, " +
-                    "strftime('%d/%m/%Y %H:%M',${DatabaseHelper.DATE}), ${DatabaseHelper.DATE} " +
+                    "strftime('%d/%m/%Y %H:%M', ${DatabaseHelper.DATE}) ${DatabaseHelper.DATE} " +
                     "FROM ${DatabaseHelper.DB_TASK};"
 
         val cursor = read.rawQuery(sql,null)

@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater);
     }
     private var taskList = emptyList<Task>()
+    private var taskAdapter : TaskAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,16 +36,23 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, TaskActivity::class.java)
             startActivity(intent)
         }
+
+        taskAdapter = TaskAdapter()
+        with(binding){
+            rvTaskList.adapter = taskAdapter
+            rvTaskList.layoutManager = LinearLayoutManager(binding.rvTaskList.context)
+
+        }
+    }
+
+    private fun updateTaskList(){
+        val taskDAO = TaskDAO(this)
+        taskList = taskDAO.read()
+        taskAdapter?.addTaskList(taskList)
     }
 
     override fun onStart() {
         super.onStart()
-        val taskDAO = TaskDAO(this)
-        taskList = taskDAO.read()
-
-        with(binding){
-            rvTaskList.adapter = TaskAdapter(taskList)
-            rvTaskList.layoutManager = LinearLayoutManager(binding.rvTaskList.context)
-        }
+        updateTaskList()
     }
 }
