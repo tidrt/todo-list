@@ -59,6 +59,19 @@ class TaskDAO(context : Context) : ITaskDAO {
     }
 
     override fun delete(idTask: Int): Boolean {
-        TODO("Not yet implemented")
+        val args = arrayOf(
+            idTask.toString()
+        )
+        try {
+            write.delete(
+                DatabaseHelper.DB_TASK,
+                "${DatabaseHelper.ID_TASK} = ?",
+                args
+            )
+        } catch (e: Exception){
+            e.printStackTrace()
+            return false
+        }
+        return true
     }
 }

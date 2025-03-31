@@ -53,7 +53,9 @@ class MainActivity : AppCompatActivity() {
         alertBuilder.setTitle("Confirmar Exclusão")
             .setMessage("Deseja confirmar a exclusão da tarefa?")
             .setPositiveButton("Sim"){_, _ ->
-
+                val taskDAO = TaskDAO(this)
+                taskDAO.delete(id)
+                updateTaskList()
             }
             .setNegativeButton("Não"){_, _ ->
 
