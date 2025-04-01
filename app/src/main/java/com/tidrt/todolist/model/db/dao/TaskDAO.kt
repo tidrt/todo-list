@@ -55,7 +55,24 @@ class TaskDAO(context : Context) : ITaskDAO {
     }
 
     override fun update(task: Task): Boolean {
-        TODO("Not yet implemented")
+        val contentValue = ContentValues()
+        contentValue.put(DatabaseHelper.TITLE, task.title)
+
+        val args = arrayOf(
+            task.idTask.toString()
+        )
+        try{
+            write.update(
+                DatabaseHelper.DB_TASK,
+                contentValue,
+                "${DatabaseHelper.ID_TASK} = ?",
+                args
+            )
+        } catch (e: Exception){
+            e.printStackTrace()
+            return false
+        }
+        return true
     }
 
     override fun delete(idTask: Int): Boolean {

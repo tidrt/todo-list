@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.tidrt.todolist.databinding.TaskCardViewBinding
 import com.tidrt.todolist.model.entities.Task
 
-class TaskAdapter(val onClickDelete : (Int) -> Unit) : Adapter<TaskAdapter.TaskViewHolder>() {
+class TaskAdapter(val onClickDelete : (Int) -> Unit, val onClickUpdate: (Task) -> Unit) : Adapter<TaskAdapter.TaskViewHolder>() {
 
     private var listTask : List<Task> = emptyList()
 
@@ -22,6 +22,9 @@ class TaskAdapter(val onClickDelete : (Int) -> Unit) : Adapter<TaskAdapter.TaskV
             binding.txtTask.text = tasks.title
             binding.txtDate.text = tasks.date
             binding.btnDelete.setOnClickListener { onClickDelete(tasks.idTask) }
+            binding.btnEdit.setOnClickListener {
+                onClickUpdate(tasks)
+            }
         }
     }
 

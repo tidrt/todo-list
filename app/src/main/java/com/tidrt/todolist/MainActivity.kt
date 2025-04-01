@@ -2,7 +2,6 @@ package com.tidrt.todolist
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +12,6 @@ import com.tidrt.todolist.adapter.TaskAdapter
 import com.tidrt.todolist.databinding.ActivityMainBinding
 import com.tidrt.todolist.model.db.dao.TaskDAO
 import com.tidrt.todolist.model.entities.Task
-import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,13 +37,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         taskAdapter = TaskAdapter(
-            {id -> acceptDelete(id)}
+            {id -> acceptDelete(id)},
+            {task -> updateTask(task)}
         )
 
         with(binding){
             rvTaskList.adapter = taskAdapter
             rvTaskList.layoutManager = LinearLayoutManager(binding.rvTaskList.context)
         }
+    }
+
+    private fun updateTask(task : Task) {
+        val intent = Intent(this, TaskActivity::class.java)
+        intent.putExtra("task", task)
+        startActivity(intent)
     }
 
     private fun acceptDelete(id : Int) {
@@ -55,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton("Sim"){_, _ ->
                 val taskDAO = TaskDAO(this)
                 taskDAO.delete(id)
-                updateTaskList()
+                refreshTaskList()
             }
             .setNegativeButton("Não"){_, _ ->
 
@@ -64,7 +69,7 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun updateTaskList(){
+    private fun refreshTaskList(){
         val taskDAO = TaskDAO(this)
         taskList = taskDAO.read()
         taskAdapter?.addTaskList(taskList)
@@ -72,6 +77,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        updateTaskList()
+        refreshTaskList()
     }
 }
